@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+<!--   
+        <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@10.58.34.10:1521:sms8k03</property>
+        <property name="hibernate.connection.username">ve_cuongdv3</property>
+        <property name="hibernate.connection.password">Cuong#2011</property>
+        <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.current_session_context_class">
+            org.hibernate.context.ThreadLocalSessionContext
+        </property>
+   -->
+   
+   <!-- production -->
+   <property name="hibernate.connection.url">39036ae60c13db43ec55ebde022569b62d39b0f695440a2bf1935aa6854c3456a09112cfc3a5aa81add5e8966e5a14c0</property>
+        <property name="hibernate.connection.username">e950587474ef217334dad53815a203e3</property>
+        <property name="hibernate.connection.password">e950587474ef21731755ef423296a346</property>
+   <!-- production -->
+   
+   <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+        <!-- Test -->
+<!--        <property name="hibernate.connection.url">39036ae60c13db43ec55ebde022569b6c8b398cc655b89b808a09a087a9a1d0654bd95c42686547e17bb4f53880014e0</property>
+        <property name="hibernate.connection.username">0d91fb1dac4669913c3b0d33bdbda10a</property>
+        <property name="hibernate.connection.password">a2fdee5f2e4f3b571d3e2796fb4647ab</property>
+         end test -->
+        
+        <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.current_session_context_class">
+            org.hibernate.context.ThreadLocalSessionContext
+        </property>
+        <!-- <property name="hibernate.transaction.auto_close_session">true</property> -->
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+        <!--
+        <property name="connection.provider_class">
+            org.hibernate.connection.C3P0ConnectionProvider
+        </property>
+        <property name="hibernate.c3p0.max_size">5</property>
+        <property name="hibernate.c3p0.timeout">10</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">60</property>
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        -->
+        
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.System" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.RequestBankplus" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TransCp" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ContentProvider" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ErrorDescription" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TransBankplus" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.SessionManager" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.Language" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ErrorMapping" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.SystemParameter" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ErrorCode" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ErrMap" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.ErrView" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.Telco" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TelcoService" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TelcoMapCp" />
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.BillingService"/>
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TransBillingSuccess"/>
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.Users"/>
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.Warehouse"/>
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.TransferMerchant"/>
+        <mapping class="com.viettel.ttbankplus.servicegw.hibernate.dao.entity.EvnRegister"/>
+
+    </session-factory>
+</hibernate-configuration>

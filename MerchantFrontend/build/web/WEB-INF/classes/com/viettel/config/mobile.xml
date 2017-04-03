@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="mobile" extends="default">
+        <action class="com.viettel.bankplus.wap.dao.Authentication" method="getMenu" name="Index">
+            <result name="indexSuccess" type="tiles">
+                index.page
+            </result>
+            <result name="loginIndex" type="tiles">
+                index.page
+            </result>
+            <result type="tiles" name="getMenu">
+                getMenu.page
+            </result>
+            <result type="tiles" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="indexSuccessMob" type="tiles">
+                indexMob.page
+            </result>
+            <result name="loginIndexMob" type="tiles">
+                indexMob.page
+            </result>
+            <result type="tiles" name="getMenuMob">
+                getMenuMob.page
+            </result>
+            <result type="tiles" name="successMob">
+                indexMob.page
+            </result>
+        </action>
+
+        <action class="com.viettel.bankplus.wap.dao.MoneyTransferAction" method="transferMoneyInsideIndex" name="Transfer">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">transferMoneyInside,transferMoneyOutside</param>
+            </interceptor-ref>
+            <result name="transferMoneyIndex" type="tiles">
+                transferMoneyIndex.page
+            </result>
+            <result name="transferMoneyInsideIndex" type="tiles">
+                transferMoneyInsideIndex.page
+            </result>
+            <result name="transferMoneyOutsizeIndex" type="tiles">
+                transferMoneyOutsizeIndex.page
+            </result>
+            <result name="moneyTransferQueryResult" type="tiles">
+                moneyTransferQueryResult.page
+            </result>
+            <result type="tiles" name="getMenu">
+                getMenu.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            
+            
+            <result name="transferMoneyIndexMob" type="tiles">
+                transferMoneyIndexMob.page
+            </result>
+            <result name="transferMoneyInsideIndexMob" type="tiles">
+                transferMoneyInsideIndexMob.page
+            </result>
+            <result name="transferMoneyOutsizeIndexMob" type="tiles">
+                transferMoneyOutsizeIndexMob.page
+            </result>
+            <result name="moneyTransferQueryResultMob" type="tiles">
+                moneyTransferQueryResultMob.page
+            </result>
+            <result name="getMenuMob" type="tiles">
+                getMenuMob.page
+            </result>
+            <result type="tiles" name="moneyTransferInsideBankDBMob">
+                moneyTransferInsideBankDBMob.page
+            </result>
+            <result type="tiles" name="moneyTransferOutsideBankDBMob">
+                transferMoneyOutsizeIndexDBMob.page
+            </result>
+            <result type="tiles" name="successInsideMob">
+                transferMoneyInsideIndexMob.page
+            </result>
+            <result type="tiles" name="successOutsideMob">
+                transferMoneyOutsizeIndexMob.page
+            </result>
+        </action>
+
+        <action class="com.viettel.bankplus.wap.dao.LookupAction" method="getMenuLookup" name="Lookup">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">balanceQuery,getTransHistory</param>
+            </interceptor-ref>
+            <result name="menuLookupIndex" type="tiles">
+                menuLookupIndex.page
+            </result>
+            <result name="balanceQueryForm" type="tiles">
+                balanceQueryForm.page
+            </result>
+            <result name="transHistoryLookupIndex" type="tiles">
+                transHistoryLookupIndex.page
+            </result>
+            <result name="balanceQueryResult" type="tiles">
+                balanceQueryResult.page
+            </result>
+            <result name="transHistoryResult" type="tiles">
+                transHistoryResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+                <param name="excludeProperties">
+
+                </param>
+            </result>
+            
+            
+            <result name="menuLookupIndexMob" type="tiles">
+                menuLookupIndexMob.page
+            </result>
+            <result name="balanceQueryFormMob" type="tiles">
+                balanceQueryFormMob.page
+            </result>
+            <result name="transHistoryLookupIndexMob" type="tiles">
+                transHistoryLookupIndexMob.page
+            </result>
+            <result name="balanceQueryResultMob" type="tiles">
+                balanceQueryResultMob.page
+            </result>
+            <result name="transHistoryResultMob" type="tiles">
+                transHistoryResultMob.page
+            </result>
+            <result name="successBalanceQueryMob" type="tiles">
+                balanceQueryFormMob.page
+            </result>
+            <result name="successTransHistoryMob" type="tiles">
+                transHistoryLookupIndexMob.page
+            </result>
+        </action>
+
+        <action class="com.viettel.bankplus.wap.dao.PaymentTelcoAction" method="getPaymentTelcoIndex" name="PaymentTelco">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">paymentTelco</param>
+            </interceptor-ref>
+            <result name="paymentTelcoIndex" type="tiles">
+                paymentTelcoIndex.page
+            </result>
+            <result name="telcoPaymentResult" type="tiles">
+                telcoPaymentResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="paymentTelcoIndexMob" type="tiles">
+                paymentTelcoIndexMob.page
+            </result>
+            <result name="telcoPaymentResultMob" type="tiles">
+                telcoPaymentResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                paymentTelcoIndexMob.page
+            </result>
+        </action>
+        <action class="com.viettel.bankplus.wap.dao.PaymentServiceAction" method="getPaymentServiceIndex" name="PaymentService">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">paymentService</param>
+            </interceptor-ref>
+            <result name="getPaymentServiceIndex" type="tiles">
+                paymentService.page
+            </result>
+            <result name="getPaymentServiceIndexMob" type="tiles">
+                paymentServiceMob.page
+            </result>
+            <result name="paymentServiceResult" type="tiles">
+                paymentServiceResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            <result name="paymentServiceResultMob" type="tiles">
+                paymentServiceResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                paymentServiceMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.ActiveAccountAction" method="getActiveAccountIndex" name="ActiveAccount">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doActive</param>
+            </interceptor-ref>
+            <result name="activeAccountIndex" type="tiles">
+                activeAccountIndex.page
+            </result>
+            <result name="wapnotsupport">
+                /WEB-INF/jsp/mobile/layout/wapNotSupport.jsp
+            </result>
+            <result name="wapnotsupportMob">
+                /WEB-INF/jsp/text/layout/wapNotSupport.jsp
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="activeAccountIndexMob" type="tiles">
+                activeAccountIndexMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                activeAccountIndexMob.page
+            </result>
+        </action>
+
+        <action class="com.viettel.bankplus.wap.dao.ChangePinAction" method="getChangePinIndex" name="ChangePin">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doChangePin</param>
+            </interceptor-ref>
+            <result name="changePinIndex" type="tiles">
+                changePinIndex.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="changePinIndexMob" type="tiles">
+                changePinIndexMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                changePinIndexMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.SetupAccountAction" method="getMenuSetupAccountIndex" name="SetupAccount">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="menuSetupAccountIndex" type="tiles">
+                menuSetupAccountIndex.page
+            </result>
+            <result name="defaultBankIndex" type="tiles">
+                defaultBankIndex.page
+            </result>
+            <result name="defaultLanguageIndex.page" type="tiles">
+                defaultLanguageIndex.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            <result type="tiles" name="successMob">
+                defaultBankIndexMob.page
+            </result>            
+            <result name="menuSetupAccountIndexMob" type="tiles">
+                menuSetupAccountIndexMob.page
+            </result>
+            <result name="defaultBankIndexMob" type="tiles">
+                defaultBankIndexMob.page
+            </result>
+            <result name="defaultLanguageIndex.pageMob" type="tiles">
+                defaultLanguageIndexMob.page
+            </result>
+            <result name="successDefaultBank.pageMob" type="tiles">
+                defaultBankIndexMob.page
+            </result>
+            <result name="successDefaultLanguage.pageMob" type="tiles">
+                defaultLanguageIndexMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.SupportAction" method="getIndexPage" name="Support">
+            <result name="menuSupportIndex" type="tiles">
+                menuSupportIndex.page
+            </result>
+            <result name="listBankSupport.page" type="tiles">
+                listBankSupport.page
+            </result>
+            <result name="faq.page" type="tiles">
+                faq.page
+            </result>
+            <result name="fee.page" type="tiles">
+                fee.page
+            </result>
+            <result name="userGuide.page" type="tiles">
+                userGuide.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+                <param name="excludeProperties">
+                </param>
+            </result>
+            
+            <result name="menuSupportIndexMob" type="tiles">
+                menuSupportIndexMob.page
+            </result>
+            <result name="listBankSupport.pageMob" type="tiles">
+                listBankSupportMob.page
+            </result>
+            <result name="faq.pageMob" type="tiles">
+                faqMob.page
+            </result>
+            <result name="fee.pageMob" type="tiles">
+                feeMob.page
+            </result>
+            <result name="userGuide.pageMob" type="tiles">
+                userGuideMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.ContactAction" method="getIndexPage" name="Contact">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onUpdate</param>
+            </interceptor-ref>
+            <result name="contact.index" type="tiles">
+                contact.index
+            </result>
+            <result name="contact.popup" type="tiles">
+                contact.popup
+            </result>
+            <result type="json" name="contact.popup.search">
+                <param name="root">json</param>
+                <param name="excludeProperties">
+                </param>
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+                <param name="excludeProperties">
+                </param>
+            </result>
+            
+            
+            <result name="contact.indexMob" type="tiles">
+                contactMob.index
+            </result>
+            <result name="contactEditMob.page" type="tiles">
+                contactEditMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                contactEditMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.ResultTransaction" method="getResultIndex" name="Result">
+            <result name="resultIndex" type="tiles">
+                result.page
+            </result>            
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="resultIndexMob" type="tiles">
+                resultMob.page
+            </result>
+        </action>
+        
+        <!--Thanh toan tien dien vib-->
+        <action class="com.viettel.bankplus.wap.dao.PaymentEvnAction" method="getPaymentEvnIndex" name="PaymentEvn">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">paymentEvn</param>
+            </interceptor-ref>
+            <result name="paymentServiceIndex" type="tiles">
+                paymentServiceIndex.page
+            </result>
+            <result name="paymentEvnIndex" type="tiles">
+                paymentEvnIndex.page
+            </result>
+            <result name="paymentEvnResult" type="tiles">
+                paymentEvnResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="paymentServiceIndexMob" type="tiles">
+                paymentServiceIndexMob.page
+            </result>
+            <result name="paymentEvnIndexMob" type="tiles">
+                paymentEvnIndexMob.page
+            </result>
+            <result name="paymentEvnResultMob" type="tiles">
+                paymentEvnResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                paymentEvnIndexMob.page
+            </result>
+        </action>
+        
+        <!--Chuyen tien smartlink-->
+        <action class="com.viettel.bankplus.wap.dao.TransferSmartlinkAction" method="getTransferSmartlinkIndex" name="TransferSmartlink">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">transferSmartlink</param>
+            </interceptor-ref>
+            <result name="transferSmartlinkIndex" type="tiles">
+                transferSmartlinkIndex.page
+            </result>
+            <result name="transferSmartlinkResult" type="tiles">
+                transferSmartlinkResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="transferSmartlinkIndexMob" type="tiles">
+                transferSmartlinkIndexMob.page
+            </result>
+            <result name="transferSmartlinkResultMob" type="tiles">
+                transferSmartlinkResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                transferSmartlinkIndexMob.page
+            </result>
+        </action>
+        
+        <!--mo tai khoan tiet kiem-->
+        <action class="com.viettel.bankplus.wap.dao.CreateMicroSavingAction" method="getCreateMicroSavingIndex" name="CreateMicroSaving">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="microSavingMenuIndex" type="tiles">
+                microSavingMenuIndex.page
+            </result>
+            <result name="createMicroSavingIndex" type="tiles">
+                createMicroSavingIndex.page
+            </result>
+            <result name="createMicroSavingResult" type="tiles">
+                createMicroSavingResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="microSavingMenuIndexMob" type="tiles">
+                microSavingMenuIndexMob.page
+            </result>
+            <result name="createMicroSavingIndexMob" type="tiles">
+                createMicroSavingIndexMob.page
+            </result>
+            <result name="createMicroSavingResultMob" type="tiles">
+                createMicroSavingResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                createMicroSavingIndexMob.page
+            </result>
+        </action>
+        
+        <!--gui them tien tai khoan tiet kiem-->
+        <action class="com.viettel.bankplus.wap.dao.DepositMicroSavingAction" method="getDepositMicroSavingIndex" name="DepositMicroSaving">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="depositMicroSavingIndex" type="tiles">
+                depositMicroSavingIndex.page
+            </result>
+            <result name="depositMicroSavingResult" type="tiles">
+                depositMicroSavingResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="depositMicroSavingIndexMob" type="tiles">
+                depositMicroSavingIndexMob.page
+            </result>
+            <result name="depositMicroSavingResultMob" type="tiles">
+                depositMicroSavingResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                depositMicroSavingIndexMob.page
+            </result>
+        </action>
+        
+        <!--truy van thong tin tktk-->
+        <action class="com.viettel.bankplus.wap.dao.QueryMicroSavingAction" method="getQueryMicroSavingIndex" name="QueryMicroSaving">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="queryMicroSavingIndex" type="tiles">
+                queryMicroSavingIndex.page
+            </result>
+            <result name="queryMicroSavingResult" type="tiles">
+                queryMicroSavingResult.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="queryMicroSavingIndexMob" type="tiles">
+                queryMicroSavingIndexMob.page
+            </result>
+            <result name="queryMicroSavingResultMob" type="tiles">
+                queryMicroSavingResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                queryMicroSavingIndexMob.page
+            </result>
+        </action>
+        
+        <!--truy van lai suat tiet kiem-->
+        <action class="com.viettel.bankplus.wap.dao.QueryInterestAction" method="getQueryInterestIndex" name="QueryInterest">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods"></param>
+            </interceptor-ref>
+            <result name="queryInterestIndex" type="tiles">
+                queryInterestIndex.page
+            </result>           
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="queryInterestIndexMob" type="tiles">
+                queryInterestIndexMob.page
+            </result>
+        </action>
+        
+        <!--tat toan tai khoan tiet kiem-->
+        <action class="com.viettel.bankplus.wap.dao.FinalSettlementAction" method="getFinalSettlementIndex" name="FinalSettlement">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="finalSettlementIndex" type="tiles">
+                finalSettlementIndex.page
+            </result>           
+            <result name="finalSettlementResult" type="tiles">
+                finalSettlementResult.page
+            </result>
+            <result type="json" name="lstPaymentStock">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="finalSettlementIndexMob" type="tiles">
+                finalSettlementIndexMob.page
+            </result>
+            <result name="finalSettlementResultMob" type="tiles">
+                finalSettlementResultMob.page
+            </result>
+            <result name="successMob" type="tiles">
+                finalSettlementIndexMob.page
+            </result>
+        </action>
+        
+        <!--thanh toan diem ban-->
+        <action class="com.viettel.bankplus.wap.dao.PaymentAgentAction" method="getPaymentAgentIndex" name="PaymentAgent">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods"></param>
+            </interceptor-ref>
+            <result name="getPaymentAgentIndex" type="tiles">
+                paymentAgentIndex.page
+            </result>
+            
+            <result name="getPaymentStockDetail" type="tiles">
+                paymentAgentStockDetail.page
+            </result>
+
+            <result name="getListPaymentStock" type="tiles">
+                paymentAgentStockList.page
+            </result>    
+            
+            <result name="getListPaymentAgentCart" type="tiles">
+                paymentAgentCart.page
+            </result> 
+              
+            <result name="getPaymentStockOrder" type="tiles">
+                paymentAgentCart.page
+            </result>     
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="doSaveTransOrderResult" type="tiles">
+                saveTransOrderResult.page
+            </result>
+            
+            <!-- text version-->
+            
+            <result name="getPaymentAgentIndexMob" type="tiles">
+                paymentAgentIndexMob.page
+            </result>
+            
+            <result name="getPaymentStockDetailMob" type="tiles">
+                paymentAgentStockDetailMob.page
+            </result>
+
+            <result name="getListPaymentStockMob" type="tiles">
+                paymentAgentStockListMob.page
+            </result>    
+            
+            <result name="getListPaymentAgentCartMob" type="tiles">
+                paymentAgentCartMob.page
+            </result> 
+              
+            <result name="getPaymentStockOrderMob" type="tiles">
+                paymentAgentCartMob.page
+            </result>   
+            <result name="doSaveTransOrderResultMob" type="tiles">
+                saveTransOrderResultMob.page
+            </result>
+            
+            <result type="json" name="successMob">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="queryInterestIndexMob" type="tiles">
+                queryInterestIndexMob.page
+            </result>
+        </action>
+        
+        <!--dangky Viettel Bankplus Simple-->
+        <action class="com.viettel.bankplus.wap.dao.VBSRegistrationAction" method="getVBSRegistrationIndex" name="VBSRegistration">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="VBSRegistrationIndex" type="tiles">
+                vbsRegistration.page
+            </result>
+            <result name="VBSRegistrationIndexMob" type="tiles">
+                vbsRegistrationMob.page
+            </result>
+
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            <result type="tiles" name="successMob">
+                vbsRegistrationMob.page
+            </result>
+        </action>
+        
+         <!--dangky Ho tro-->
+        <action class="com.viettel.bankplus.wap.dao.SupportRegistrationAction" method="getIndexPage" name="SupportRegistration">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">onSubmit</param>
+            </interceptor-ref>
+            <result name="SupportRegistrationIndex" type="tiles">
+                supportRegistration.page
+            </result>
+            <result name="SupportRegistrationIndexMob" type="tiles">
+                supportRegistrationMob.page
+            </result>
+
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            <result type="tiles" name="successMob">
+                supportRegistrationMob.page
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.wap.dao.ResultTransaction" method="getResultVBSAndSupportIndex" name="RegistrationResult">
+            <result name="resultVBSAndSupportIndex" type="tiles">
+                vbsAndSupportResult.page
+            </result>            
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+            
+            <result name="resultVBSAndSupportIndexMob" type="tiles">
+                vbsAndSupportResultMob.page
+            </result>
+        </action>
+        
+    </package>
+</struts>

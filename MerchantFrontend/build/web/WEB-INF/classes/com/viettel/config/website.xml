@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="mobile" extends="default">
+        <action class="com.viettel.bankplus.merchantgw.dao.Authentication" method="getIndexPage" name="Index">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doChangePass</param>
+            </interceptor-ref>
+            <result name="indexSuccess" type="tiles">
+                index.page
+            </result>
+            <result name="loginIndex" type="tiles">
+                index.page
+            </result>
+            <result type="tiles" name="main.page">
+                main.page
+            </result>
+            <result type="tiles" name="changePassIndex">
+                changePass.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.merchantgw.dao.MainAction" method="getIndexPage" name="Main">
+            <result name="indexSuccess" type="tiles">
+                main.page
+            </result>
+            <result name="loginIndex" type="tiles">
+                index.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.merchantgw.dao.TransactionAction" method="getIndexPage" name="Transaction">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doConfirm,doRefund,multiConfirm</param>
+            </interceptor-ref>
+            <result name="indexSuccess" type="tiles">
+                transaction.page
+            </result>
+            <result name="transactionDetail" type="tiles">
+                transactionDetail.page
+            </result>
+            <result name="transactionConfirm" type="tiles">
+                transactionConfirm.page
+            </result>
+            <result name="transfer.page" type="tiles">
+                transfer.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.merchantgw.dao.ConfirmTransFixAction" method="display" name="ConfirmTransFix">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doConfirm,doRefund,multiConfirm</param>
+            </interceptor-ref>
+            <result name="indexSuccess" type="tiles">
+                transactionFix.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.merchantgw.dao.ReportAction" method="getIndexPage" name="Report">
+            <result name="indexSuccess" type="tiles">
+                reportTotal.page
+            </result>
+            <result name="reportTotal" type="tiles">
+                reportTotal.page
+            </result>
+            <result name="reportRefund" type="tiles">
+                reportRefund.page
+            </result>
+            <result name="reportEVNPC" type="tiles">
+                reportEVNPC.page
+            </result>
+            <result name="evnregister.page" type="tiles">
+                evnregister.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        
+        <action class="com.viettel.bankplus.merchantgw.dao.ExportExcelAction" method="doExport" name="Export">
+            <result name="doDownload" type="stream">  
+                <param name="contentType">application/vnd.ms-excel</param>  
+                <param name="inputName">fileInputStream</param> 
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">1024</param>  
+            </result>  
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        <!--PHUCPT edit Jan, 05th 2017-->
+        <action class="com.viettel.bankplus.merchantgw.dao.QueryTransactionAction" method="getIndexPage" name="TransactionAdmin">
+            <interceptor-ref name="requestTokenRdwfInterceptorStack">
+                <param name="tokenSession.includeMethods">doConfirm,doRefund,multiConfirm</param>
+            </interceptor-ref>
+            <result name="indexSuccess" type="tiles">
+                transactionAdmin.page
+            </result>
+            <result name="transactionDetail" type="tiles">
+                transactionDetail.page
+            </result>
+            <result name="transactionConfirm" type="tiles">
+                transactionConfirm.page
+            </result>
+            <result name="transfer.page" type="tiles">
+                transfer.page
+            </result>
+            <result type="json" name="success">
+                <param name="root">json</param>
+            </result>
+        </action>
+        <!--end edit-->
+    </package>
+</struts>

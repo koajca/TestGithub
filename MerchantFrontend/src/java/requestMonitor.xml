@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RequestMonitor>
+    <global>
+        <log-duration>5</log-duration>
+        <def-action>Others</def-action>
+        <def-message>Action qua tai truy nhap</def-message>
+    </global>
+    <items>
+        <item>
+            <action class="" method="">Authentication.do</action>
+            <threshold>4</threshold>
+            <description>Xac thuc nguoi dung</description>
+            <message>Xac thuc qua tai truy nhap</message>
+        </item>
+        <item>
+            <action class="" method="">Others</action>
+            <threshold>10</threshold>
+            <description>Action khong duoc giam sat</description>
+            <message>Action khong duoc giam sat qua tai truy nhap</message>
+        </item>
+    </items>
+</RequestMonitor>

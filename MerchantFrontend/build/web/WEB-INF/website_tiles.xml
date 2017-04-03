@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://struts.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <!--[ Base definitions -->
+    <definition name="base.definition" template="/WEB-INF/jsp/website/layout/index.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="menu" value=""/>
+    </definition>
+
+    <definition name="body.definition" template="/WEB-INF/jsp/website/layout/bodyLayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="type" value="default"/>
+    </definition>
+
+    <definition name="content.definition" template="/WEB-INF/jsp/website/layout/contentlayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+    </definition>
+    <definition name="blank.definition" template="/WEB-INF/jsp/website/layout/blanklayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+    </definition>
+<!--    ]
+
+    [ Custom definitions -->
+    <definition extends="base.definition" name="index.page">
+        <put-attribute name="title" value="homePage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/layout/homepage.jsp"/>
+    </definition>
+    <definition extends="base.definition" name="main.page">
+        <put-attribute name="title" value="ControlPanelPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/layout/controlpanel.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <definition extends="base.definition" name="transaction.page">
+        <put-attribute name="title" value="TransactionPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/transaction/transaction.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <!--PHUCPT edit Jan, 05th 2017-->
+    <definition extends="base.definition" name="transactionAdmin.page">
+        <put-attribute name="title" value="TransactionPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/transaction/transactionAdmin.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <!--end edit-->
+    <definition extends="base.definition" name="transactionConfirm.page">
+        <put-attribute name="title" value="TransactionConfirmPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/transaction/transactionConfirm.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <definition extends="blank.definition" name="transactionDetail.page">
+        <put-attribute name="title" value="TransactionDetailPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/transaction/transactionDetail.jsp"/>
+    </definition>
+    
+    <definition extends="base.definition" name="reportTotal.page">
+        <put-attribute name="title" value="reportTotalPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/report/reportTotal.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <definition extends="base.definition" name="reportRefund.page">
+        <put-attribute name="title" value="reportRefundPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/report/reportTotalRefund.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <definition extends="base.definition" name="reportEVNPC.page">
+        <put-attribute name="title" value="reportEVNPCPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/report/reportEVNNPC.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <definition extends="base.definition" name="changePass.page">
+        <put-attribute name="title" value="changePassPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/users/changePass.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    
+    <definition extends="base.definition" name="error.page">
+        <put-attribute name="title" value="Error"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/layout/error.jsp"/>
+    </definition>
+    
+    <definition extends="base.definition" name="result.page">
+        <put-attribute name="title" value="Trang ket qua"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/layout/result.jsp"/>
+    </definition>
+    
+    <definition extends="base.definition" name="transfer.page">
+        <put-attribute name="title" value="Tra cuu chuyen tien"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/transfermerchant/transfermerchant.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    
+    <definition extends="base.definition" name="evnregister.page">
+        <put-attribute name="title" value="Bao cao dang ky thanh toan hoa don dien"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/report/reportEvnReg.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+    <!--[ AnhLD4 -->
+    <definition extends="base.definition" name="transactionFix.page">
+        <put-attribute name="title" value="ConfirmTransFixPage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/website/confirmTransactionFix/index.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/website/layout/menu.jsp"/>
+    </definition>
+</tiles-definitions>

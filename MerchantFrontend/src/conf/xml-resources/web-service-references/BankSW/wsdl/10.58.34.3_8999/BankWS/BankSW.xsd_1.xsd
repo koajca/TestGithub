@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.6-1b01  svn-revision#13094. --><xs:schema xmlns:tns="http://business.vietinbank.ws.payment.viettel.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://business.vietinbank.ws.payment.viettel.com/">
+
+<xs:element name="hello" type="tns:hello" />
+
+<xs:element name="helloResponse" type="tns:helloResponse" />
+
+<xs:element name="refund" type="tns:refund" />
+
+<xs:element name="refundResponse" type="tns:refundResponse" />
+
+<xs:element name="verifyCard" type="tns:verifyCard" />
+
+<xs:element name="verifyCardResponse" type="tns:verifyCardResponse" />
+
+<xs:complexType name="verifyCard">
+<xs:sequence>
+<xs:element name="vTBankInfo" type="tns:vtBankInfo" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vtBankInfo">
+<xs:sequence>
+<xs:element name="add_info" type="xs:string" minOccurs="0" />
+<xs:element name="amount" type="xs:string" minOccurs="0" />
+<xs:element name="banktransaction_id" type="xs:string" minOccurs="0" />
+<xs:element name="card_holder_name" type="xs:string" minOccurs="0" />
+<xs:element name="card_number" type="xs:string" minOccurs="0" />
+<xs:element name="client_ip" type="xs:string" minOccurs="0" />
+<xs:element name="currency_code" type="xs:string" minOccurs="0" />
+<xs:element name="description" type="xs:string" minOccurs="0" />
+<xs:element name="expired_since" type="xs:string" minOccurs="0" />
+<xs:element name="jsessionid" type="xs:string" minOccurs="0" />
+<xs:element name="language" type="xs:string" minOccurs="0" />
+<xs:element name="merchant_id" type="xs:string" minOccurs="0" />
+<xs:element name="msgtype" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
+<xs:element name="provider_id" type="xs:string" minOccurs="0" />
+<xs:element name="redirecturl" type="xs:string" minOccurs="0" />
+<xs:element name="refundtransaction_id" type="xs:string" minOccurs="0" />
+<xs:element name="response_code" type="xs:string" minOccurs="0" />
+<xs:element name="statuscode" type="xs:string" minOccurs="0" />
+<xs:element name="transaction_id" type="xs:string" minOccurs="0" />
+<xs:element name="username" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="verifyCardResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:vtBankInfo" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="refund">
+<xs:sequence>
+<xs:element name="vTBankInfo" type="tns:vtBankInfo" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="refundResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:vtBankInfo" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

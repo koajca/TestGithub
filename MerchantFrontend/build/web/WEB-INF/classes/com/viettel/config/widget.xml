@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="widget" extends="default">
+        <action name="widget" class="com.viettel.fwtest.database.DAO.control.form.CommonDAO" method="preparePage">
+            <result type="tiles" name="preparePage">widget.page</result>
+        </action>
+    </package>
+</struts>

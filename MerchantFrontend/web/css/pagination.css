@@ -1,0 +1,33 @@
+.pg-normal {
+                color: #5A92C0;
+                padding:3px;
+                border:1px solid gray;
+                background: #FCFCFC;
+                font-weight: normal;
+                text-decoration: none;
+                cursor: pointer;
+                -moz-border-radius: 5px 5px 5px 5px;
+                -webkit-border-radius: 5px 5px 5px 5px;
+                -ms-border-radius: 5px 5px 5px 5px;
+                -o-border-radius: 5px 5px 5px 5px;
+                border-radius: 5px 5px 5px 5px;
+                -webkit-box-shadow: 0 7px 4px -4px #777;
+                -moz-box-shadow: 0 7px 4px -4px #777;
+            }
+            
+            .pg-selected {
+                color: #5A92C0;
+                padding:3px;
+                border:1px solid gray;
+                font-weight: 900;
+                text-decoration: none;
+                -moz-border-radius: 5px 5px 5px 5px;
+                -webkit-border-radius: 5px 5px 5px 5px;
+                -ms-border-radius: 5px 5px 5px 5px;
+                -o-border-radius: 5px 5px 5px 5px;
+                border-radius: 5px 5px 5px 5px;
+            }
+            
+            .ui-table-columntoggle-btn {
+                display: none !important;
+            }
