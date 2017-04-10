@@ -1,0 +1,385 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['searchTransactionBank.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['searchTransactionBank.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content-header">
+            <h:form id="fmSearchTransBank">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionBank.fromDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="frmDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{searchTransactionBank.fromDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionBank.toDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-6">
+                                        <p:calendar id="toDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{searchTransactionBank.toDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 control-label">#{lang['searchTransactionBank.reqIdBank']}</label>
+                                    <div class="col-xs-6">
+                                        <p:inputText id="transIdBank" value="#{searchTransactionBank.transIdBank}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionBank.reqId']}</label>
+                                    <div class="col-xs-7">
+                                        <p:inputText id="requestId" value="#{searchTransactionBank.requestId}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionBank.reqIdCp']}</label>
+                                    <div class="col-xs-7">
+                                        <p:inputText id="requestIdCp" value="#{searchTransactionBank.requestIdCp}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-6 control-label">#{lang['searchTransactionBank.billingCode']}</label>
+                                    <div class="col-xs-6">
+                                        <p:inputText id="billingCode" value="#{searchTransactionBank.billingCode}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionBank.chooseCp']}</label>
+                                    <div id = "chooseCp" class="col-xs-7">
+                                        <p:selectOneMenu id="chooseCp" value="#{searchTransactionBank.chooseCp}" 
+                                                         style="width:180px"
+                                                         filter="true"
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.chooseCp.default']}" 
+                                                          itemValue="-1" 
+                                                          noSelectionOption="true" 
+                                                          />
+                                            <f:selectItems value="#{searchTransactionBank.listContentProvider}" 
+                                                           var="item" 
+                                                           itemLabel="#{item.CP_NAME}" 
+                                                           itemValue="#{item.CONTENT_PROVIDER_ID}" 
+                                                           noSelectionValue="true"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label">#{lang['searchTransactionBank.chooseStatus']}</label>
+                                    <div class="col-xs-5">
+                                        <p:selectOneMenu id="chooseStatus" value="#{searchTransactionBank.chooseStatus}" style="width:180px">
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.default']}" 
+                                                          itemValue="NONE" 
+                                                          noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.0']}" itemValue="0" />
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.1']}" itemValue="1"  />
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.2']}" itemValue="2"  />
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.3']}" itemValue="3"  />
+                                            <f:selectItem itemLabel="#{lang['searchTransactionBank.status.4']}" itemValue="4"  />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton styleClass="btn btn-primary" value="#{lang['searchTransactionBank.btnSearch']}" 
+                                             id="btnSearch" 
+                                             actionListener="#{searchTransactionBank.doSearch()}" 
+                                             update=":fmSearchTransBankInfo:gridData" 
+                                             onclick="PF('statusDialog').show();" 
+                                             oncomplete="PF('statusDialog').hide();"
+                                             />
+                            <p:commandButton value="#{lang['searchTransactionBank.btnExcel']}"  
+                                             id="btnExport" 
+                                             styleClass="btn btn-info" 
+                                             ajax="false" 
+                                             update=":fmSearchTransBankInfo:gridData" 
+                                             validateClient="true" 
+                                             onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <p:fileDownload value="#{searchTransactionBank.file}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+            <h:form id="fmSearchTransBankInfo">
+                <div class="box box-info">
+                    <p:dataTable var="searchTrans" value="#{searchTransactionBank.lstTransaction}" id="gridData" 
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,20"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 >
+                        <p:column headerText="#{lang['STB.bankCode']}" >
+                            <h:outputText value="#{searchTrans.BANKCODE}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.cpCode']}">
+                            <h:outputText value="#{searchTrans.CPCODE}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.cpName']}">
+                            <h:outputText value="#{searchTrans.CPNAME}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.requestIdBank']}">
+                            <h:outputText value="#{searchTrans.TRANSID}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.cpRequestId']}">
+                            <h:outputText value="#{searchTrans.CONTENTPROVIDERID}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.billingCode']}">
+                            <h:outputText value="#{searchTrans.BILLINGCODE}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.amount']}">
+                            <h:outputText value="#{searchTrans.AMOUNT}" >
+                                <f:convertNumber groupingUsed="true" minFractionDigits="0" type="number"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.requestDate']}">
+                            <h:outputText value="#{searchTrans.REQUESTDATE}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.infoTran']}">
+                            <h:outputText value="#{searchTrans.ORDERINFO}" />
+                        </p:column>
+
+                        <p:column headerText="#{lang['STB.statusTran']}">
+                            <h:outputText value="#{lang['searchTransactionBank.STB.status.0']}" rendered="#{searchTrans.TRANSSTATUS == 0}" /> 
+                            <h:outputText value="#{lang['searchTransactionBank.STB.status.1']}" rendered="#{searchTrans.TRANSSTATUS == 1}" /> 
+                            <h:outputText value="#{lang['searchTransactionBank.STB.status.2']}" rendered="#{searchTrans.TRANSSTATUS == 2}" /> 
+                            <h:outputText value="#{lang['searchTransactionBank.STB.status.3']}" rendered="#{searchTrans.TRANSSTATUS == 3}" /> 
+                            <h:outputText value="#{lang['searchTransactionBank.STB.status.4']}" rendered="#{searchTrans.TRANSSTATUS == 4}" /> 
+                        </p:column>
+
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton icon="ui-icon-search" 
+                                             actionListener="#{searchTransactionBank.viewDetail(searchTrans)}" 
+                                             update=":fmSearchTransBankInfo:idDlg" 
+                                             oncomplete="PF('dlgDetail').show();"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog header="#{lang['searchTransactionBank.detail.title']}" 
+                              widgetVar="dlgDetail" 
+                              modal="true" 
+                              closable="true" 
+                              id="idDlg" 
+                              width="900" height="700">
+                        <p:outputPanel id="myOutputPanel">
+                            <div class="box-body">
+                                <p:messages id="msgErrorDetail" autoUpdate="true" showSummary="true" />
+                                <label class="control-label">#{lang['searchTransactionBank.detail.infoTran']}</label>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.bankCode']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.BANKCODE}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.cpCode']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.CPCODE}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.cpName']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.CPNAME}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.requestId']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.TRANSID}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.requestIdCp']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.ORDERID}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.billCode']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.BILLINGCODE}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.amount']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.AMOUNT}" >
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="0" type="number"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.requestDate']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.REQUESTDATE}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.infoTran']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.ORDERINFO}" />
+                                    </div>
+                                </div>
+                                <h3>#{lang['searchTransactionBank.detail.infoCustomer']}</h3>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.mobileNumber']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.MSISDN}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label>#{lang['searchTransactionBank.detail.custName']}</label>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <h:outputText value="#{searchTransactionBank.transDetail.CUSTOMERNAME}" />
+                                    </div>
+                                </div>
+                                <!--                            <h3>Tác động hoàn tiền</h3>
+                                                            <div class="row">
+                                                                <div class="col-xs-3">
+                                                                    <label>Số tiền hoàn (VNĐ)</label>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <p:inputText id="amountRefund" value="" readonly="true"/>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <p:growl id="message" showDetail="true" />
+                                                                    <p:commandButton value="Hoàn tiền" 
+                                                                                     update="message"
+                                                                                     actionListener=""
+                                                                                     >
+                                                                        <p:confirm header="Xác nhận hoàn tiền" 
+                                                                                   message="Bạn có đồng ý thực hiện yêu cầu hoàn tiền giao dịch?" 
+                                                                                   icon="ui-icon-alert" />
+                                                                    </p:commandButton>
+                                
+                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                                    </p:confirmDialog>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-body"></div>
+                                                            <div class="row">
+                                                                <div class="col-xs-3">
+                                                                    <label>Lý do</label>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <p:inputTextarea id="refundReason" value="" rows="3" cols="50"/>
+                                                                </div>
+                                                            </div>-->
+                            </div>
+                            <h3>#{lang['searchTransactionBank.detail.history']}</h3>
+                            <div id="listTransaction" class="listTransaction">
+                                <table style="color: #000000; border-collapse: collapse; border: 1px solid #C5C5C5; margin-left: 10px; border-spacing: 5px;">
+                                    <tr style="background-color: #E8E8E8">
+                                        <td style="width: 100px">#{lang['searchTransactionBank.detail.typeTran']}</td>
+                                        <td style="width: 180px">#{lang['searchTransactionBank.detail.requestIdWriteShort']}</td>
+                                        <td style="width: 180px">#{lang['searchTransactionBank.detail.orgRequestId']}</td>
+                                        <td style="width: 80px">#{lang['searchTransactionBank.detail.amountWriteShot']}</td>
+                                        <td style="width: 200px">#{lang['searchTransactionBank.detail.reqDate']}</td>
+                                        <td style="width: 100px">#{lang['searchTransactionBank.detail.status']}</td>
+                                    </tr>
+                                    <ui:repeat value="#{searchTransactionBank.listTransHis}" var="itemHis">
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.typeTran.payment']}" rendered="#{itemHis.transType == 0}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.typeTran.query']}" rendered="#{itemHis.transType == 1}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.typeTran.refund']}" rendered="#{itemHis.transType == 2}" /> 
+                                            </td>
+                                            <td>#{itemHis.transId}</td>
+                                            <td>#{itemHis.originalTransId}</td>
+                                            <td>
+                                                <h:outputText value="#{itemHis.amount}" >
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="0" type="number"/>
+                                                </h:outputText>
+                                            </td>
+                                            <td>#{itemHis.requestDate}</td>
+                                            <td>
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.tranStatus.0']}" rendered="#{itemHis.transStatus == 0}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.tranStatus.1']}" rendered="#{itemHis.transStatus == 1}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.tranStatus.2']}" rendered="#{itemHis.transStatus == 2}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.tranStatus.3']}" rendered="#{itemHis.transStatus == 3}" /> 
+                                                <h:outputLabel value="#{lang['searchTransactionBank.detail.tranStatus.4']}" rendered="#{itemHis.transStatus == 4}" /> 
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </table>
+                            </div>
+                        </p:outputPanel>
+                    </p:dialog>
+                </div>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>

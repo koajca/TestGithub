@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['adjustment.transaction.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['adjustment.transaction.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="formSearch">
+                <div class="box box-primary">
+                    <p:messages id="msgs" showSummary="true" />
+                    <div class="box-body">
+                        <div class="row"> 
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="fromDate" value="#{lang['query.transaction.lbl.fromDate']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:calendar id="fromDate" value="#{adjustmentTransactionBean.transForm.fromDate}" showOn="button" required="true" requiredMessage="#{msg['query.transaction.from.date.not.empty']}"/>
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="toDate" value="#{lang['query.transaction.lbl.toDate']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:calendar id="toDate" value="#{adjustmentTransactionBean.transForm.toDate}" showOn="button" required="true" requiredMessage="#{msg['query.transaction.to.date.not.empty']}"/>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="status" value="#{lang['query.transaction.lbl.status']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:selectOneMenu id="status" value="#{adjustmentTransactionBean.transForm.status}" style="width:150px">
+                                    <f:selectItem itemLabel="#{lang['adjustment.transaction.cmb.value.1']}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{lang['adjustment.transaction.cmb.value.2']}" itemValue="2"/>
+                                    <f:selectItem itemLabel="#{lang['adjustment.transaction.cmb.value.3']}" itemValue="3"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-sm-12 text-center">
+                            <p:commandButton value="#{lang['query.transaction.btn.search']}" id="btnSearch"  
+                                             actionListener="#{adjustmentTransactionBean.searchTrans()}" 
+                                             styleClass="btn btn-primary" ajax="false"
+                                             update="msgs"
+                                             validateClient="true" />
+                            <p:commandButton value="#{lang['adjustment.transaction.btn.import']}" id="btnShowImportDialog"
+                                             styleClass="btn btn-info"
+                                             actionListener="#{adjustmentTransactionBean.showImportDialog()}" 
+                                             />
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <p:remoteCommand name="reloadTransConfirm" action="#{adjustmentTransactionBean.getAllTransConfirm()}" update="transConfirm" />
+                    <div class="box-body">
+                        <p:dataTable id="listTrans" var="trans" rows="10"
+                                     value="#{adjustmentTransactionBean.listTrans}" editable="true" 
+                                     editMode="cell" widgetVar="cellTrans">
+                            <!--<p:ajax event="cellEdit" listener="#{adjustmentTransactionBean.onCellEdit}"  oncomplete="reloadTransConfirm()" />-->
+                            <p:ajax event="cellEdit" listener="#{adjustmentTransactionBean.onCellEdit}" />
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.request.id']}">
+                                <h:outputText value="#{trans.REQUEST_ID}" />
+                            </p:column>
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.original.request.id']}">
+                                <h:outputText value="#{trans.ORIGINAL_REQUEST_ID}" />
+                            </p:column>
+                            <!--                <p:column headerText="Ma KH moi">
+                                                <h:outputText value="#{trans.BILLING_CODE}" />
+                                            </p:column>-->
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.original.billing.code']}">
+                                <h:outputText value="#{trans.ORIGINAL_BILLING_CODE}" />
+                            </p:column>
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.original.amount']}">
+                                <h:outputText value="#{trans.ORIGINAL_AMOUNT}" />
+                            </p:column>
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.amount']}">
+                                <h:outputText value="#{trans.AMOUNT}" />
+                            </p:column>
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.original.request.date']}">
+                                <h:outputText value="#{trans.ORIGINAL_REQUEST_DATE}" />
+                            </p:column>
+                            <!--                <p:column headerText="Ngay YC">
+                                                <h:outputText value="#{trans.REQUEST_DATE}" />
+                                            </p:column>-->
+                            <p:column headerText="#{lang['adjustment.transaction.lbl.confirm']}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{trans.CONFIRM_STATUS}" /></f:facet>
+                                    <f:facet name="input">
+                                        <h:selectOneMenu value="#{trans.CONFIRM_STATUS}" style="width:100%">
+                                            <f:selectItems value="#{adjustmentTransactionBean.listStatus}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-12 text-center">
+                            <p:commandButton value="#{lang['confirming.transaction.btn.confirm']}" id="btnShowDialog"  
+                                             actionListener="#{adjustmentTransactionBean.showDialogTransConfirm()}" 
+                                             styleClass="btn btn-primary" ajax="true"
+                                             update="msgs,transConfirm" />
+                            <p:commandButton value="#{lang['query.transaction.btn.export']}"  id="btnExport" styleClass="btn btn-info" ajax="false" validateClient="true" onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <p:fileDownload value="#{adjustmentTransactionBean.file}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <p:dialog header="#{lang['adjustment.transaction.title']}" widgetVar="wdgTransConfirm"  height="300" >
+                        <div class="box-info">
+                            <div class="box-body">
+                                <p:dataTable var="trans" value="#{adjustmentTransactionBean.allTransConfirm}" rows="10"
+                                             id="transConfirm" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             >
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.request.id']}">
+                                        <h:outputText value="#{trans.REQUEST_ID}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.original.request.id']}">
+                                        <h:outputText value="#{trans.ORIGINAL_REQUEST_ID}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.billing.code']}">
+                                        <h:outputText value="#{trans.BILLING_CODE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.original.billing.code']}">
+                                        <h:outputText value="#{trans.ORIGINAL_BILLING_CODE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.original.amount']}">
+                                        <h:outputText value="#{trans.ORIGINAL_AMOUNT}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.amount']}">
+                                        <h:outputText value="#{trans.AMOUNT}" />
+                                    </p:column>
+
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.original.request.date']}">
+                                        <h:outputText value="#{trans.ORIGINAL_REQUEST_DATE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.request.date']}">
+                                        <h:outputText value="#{trans.REQUEST_DATE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['adjustment.transaction.lbl.confirm']}">
+                                        <h:outputText value="#{trans.CONFIRM_STATUS}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="box-footer">
+                                <p:remoteCommand name="reloadContent" action="#{adjustmentTransactionBean.searchTrans}" update="listTrans"  oncomplete="PF('wdgTransConfirm').hide();" />
+                                <div class="col-xs-10 text-center">
+                                    <p:commandButton value="#{lang['adjustment.transaction.btn.confirm']}" id="btnConfirm" styleClass="btn btn-primary" actionListener="#{adjustmentTransactionBean.multiConfirm}" oncomplete="reloadContent()" >
+                                        <p:confirm header="#{msg[adjustment.transaction.confirm.dialog.title]}" message="#{msg[adjustment.transaction.confirm.dialog.message]}" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{lang['adjustment.transaction.btn.cancel']}" type="button" styleClass="btn btn-info" onclick="PF('wdgTransConfirm').hide();" />
+                                </div>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </div>
+                        </div>
+                    </p:dialog>
+                </div>
+            </h:form>
+            <p:dialog header="#{lang['adjustment.transaction.title.import.dialog']}" widgetVar="wdgImportDialog"  
+                      height="450" width="900">
+                <div class="box box-primary">
+                    <h:form id="formImportData" enctype="multipart/form-data">
+                        <p:growl id="msgUploadFile" showDetail="true"/>
+                        <div class="box-body">
+                            <p:fileUpload id ="fileUploadID" fileUploadListener="#{adjustmentTransactionBean.handleFileUpload}" 
+                                          mode="advanced" dragDropSupport="false"
+                                          allowTypes="/(\.|\/)(xls|xlsx)$/"
+                                          fileLimit="1"
+                                          update="listTransImport,fileUploadID" sizeLimit="1024000"
+                                          invalidFileMessage="Sai định dạng file"
+                                          invalidSizeMessage="File vượt quá giới hạn"
+                                          requiredMessage="Bạn chưa upload file"
+                                          required="true"
+                                          widgetVar="fileUploadWidget"
+                                          />
+                        </div>
+                        <!--                                            </div>
+                                            <div class="box box-info">-->
+                        <div class="box-body">
+                            <p:dataTable var="trans" value="#{adjustmentTransactionBean.listTransImported}" rows="10"
+                                         id="listTransImport" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         >
+                                <p:column headerText="#{lang['adjustment.transaction.lbl.request.id']}">
+                                    <h:outputText value="#{trans.REQUEST_ID}" />
+                                </p:column>
+                                <p:column headerText="#{lang['adjustment.transaction.lbl.confirm.status']}">
+                                    <h:outputText value="#{trans.CONFIRM_STATUS}" />
+                                </p:column>
+                                <p:column headerText="#{lang['adjustment.transaction.lbl.reason']}">
+                                    <h:outputText value="#{trans.DESCRIPTION}" />
+                                </p:column>
+                                <p:column headerText="#{lang['adjustment.transaction.lbl.description']}">
+                                    <h:outputText value="#{trans.NOTE}" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <!--</div>-->
+                    </h:form>
+                    <!--<div class="box box-info">-->
+                    <div class="box-footer">
+                        <div class="col-xs-12 text-center">
+                            <h:form id="formImportConfirm">
+                                <p:commandButton value="#{lang['confirming.transaction.btn.confirm']}" 
+                                                 actionListener="#{adjustmentTransactionBean.confirmTransImported}"
+                                                 styleClass="btn btn-primary"
+                                                 update=":formImportData:listTransImport"
+                                                 />
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </p:dialog>
+        </section>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="last">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title><h:outputText value="#{lang['web.title']}" /></title>
+                <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+                <!--Bootstrap 3.3.6--> 
+                <link rel="stylesheet" href="resources/ext/css/bootstrap.min.css" />
+                <!--Font Awesome--> 
+                <link rel="stylesheet" href="resources/ext/css/font-awesome.min.css" />
+                <!--Ionicons--> 
+                <link rel="stylesheet" href="resources/ext/css/ionicons.min.css" />
+
+                <link rel="stylesheet" href="resources/primefaces-adminlte/theme.css" />
+                <link rel="stylesheet" href="resources/ext/css/skin-blue.min.css" />
+                <style>
+                    .form-control, .btn {
+                        padding: 4px 12px !important;
+                    }
+                    body {
+                        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important; //"Source Sans Pro",
+                    }
+                </style>
+                <!--                                <link rel="stylesheet" type="text/css"
+                                                      href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+                                                <link rel="stylesheet" type="text/css"
+                                                      href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+                                                <link rel="stylesheet" type="text/css"
+                                                      href="#{request.contextPath}/resources/dist/css/skins/skin-blue.min.css" />
+                                                <link rel="stylesheet" href="resources/ext/css/font-awesome.min.css" />
+                                                 
+                                                <link rel="stylesheet" href="resources/ext/css/ionicons.min.css" />-->
+                <script type="text/javascript">
+                    function handleLoginRequest(xhr, status, args) {
+                        PF('statusDialog').hide();
+                        if (args.validationFailed || !args.loggedIn) {
+                            console.log('login false');
+                        } else {
+                            console.log('login success');
+                            location.href = 'pages/home.jsf';
+                        }
+                        reloadCaptcha();
+                    }
+
+                    function reloadCaptcha() {
+                        var url = '#{request.contextPath}/captcha.png?' + Math.random();
+                        $('#imgCaptcha').attr('src', url);
+                    }
+                </script>
+            </f:facet>
+        </h:head>
+
+        <h:body styleClass="hold-transition login-page">
+
+            <div class="login-box">
+                <div class="login-logo">
+                    <b>Merchant</b>ADMIN
+                </div>  
+                <!-- /.login-logo -->
+                <div class="login-box-body">
+                    <p class="login-box-msg">
+                        <h:outputText value="#{lang['login.boxmsg']}" />
+                    </p>
+
+                    <h:form>
+
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+
+                        <div class="form-group has-feedback">
+                            <p:inputText id="cpcode" styleClass="form-control" value="#{loginBean.cpcode}" placeholder="#{lang['login.cpcode']}">
+                            </p:inputText>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+                        </div>
+                        <div class="form-group has-feedback">
+                            <p:inputText id="username" styleClass="form-control" value="#{loginBean.username}" placeholder="#{lang['login.username']}" >
+                            </p:inputText>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <p:inputText id="password" styleClass="form-control" type="password" value="#{loginBean.password}" placeholder="#{lang['login.password']}" >
+                            </p:inputText>
+                            <span class="glyphicon glyphicon-lock form-control-feedback" ></span>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-6">
+                                <p:inputText id="securityCode" styleClass="form-control" value="#{loginBean.securityCode}" placeholder="#{lang['login.securitycode']}" >
+                                </p:inputText>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-xs-6">
+                                <img src="#{request.contextPath}/captcha.png" id="imgCaptcha" onclick="reloadCaptcha();" style="cursor: pointer;" />
+                            </div>
+                            <!-- /.col -->
+                        </div>
+
+                        <div class="row">
+                            <p:commandButton onclick="PF('statusDialog').show();" oncomplete="handleLoginRequest(xhr, status, args)" value="#{lang['login.btnlogin']}" id="btnLogin" update="msgError" actionListener="#{loginBean.doLogin}" styleClass="btn btn-primary btn-block btn-flat" />
+                        </div>
+
+                    </h:form>
+                </div>
+                <!-- /.login-box-body -->
+            </div>
+            <!-- /.login-box -->
+
+            <p:dialog modal="true" widgetVar="statusDialog" showHeader="false" draggable="false" closable="false" resizable="false" visible="false" position="center" maximizable="false" minimizable="false" >
+                <p:graphicImage url="/resources/images/ajax-loader.gif"/>
+            </p:dialog>
+
+        </h:body>
+    </f:view>
+</html>

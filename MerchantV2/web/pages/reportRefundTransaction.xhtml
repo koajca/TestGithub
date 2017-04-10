@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['refundTransaction.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['refundTransaction.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="fmRefundTrans">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['refundTransaction.fromDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="frmDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{refundTransaction.fromDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['refundTransaction.toDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="toDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{refundTransaction.toDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['refundTransaction.flwDayMonth']}</label>
+                                    <div class="col-xs-7">
+                                        <p:selectOneMenu id="typeSearch" value="#{refundTransaction.typeSearch}" style="width:100px">
+                                            <f:selectItem itemLabel="#{lang['refundTransaction.typeSearch.day']}" itemValue="DAY"  
+                                                          noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="#{lang['refundTransaction.typeSearch.month']}" itemValue="MON"  />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['refundTransaction.chooseCp']}</label>
+                                    <div id = "chooseCp" class="col-xs-7">
+                                        <p:selectOneMenu value="#{refundTransaction.chooseCp}" style="width:180px"
+                                                         filter="true"
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{lang['refundTransaction.chooseCp.default']}" 
+                                                          itemValue="-1" 
+                                                          noSelectionOption="true" />
+                                            <f:selectItems value="#{refundTransaction.listContentProvider}" 
+                                                           var="item" itemLabel="#{item.CP_NAME}" 
+                                                           itemValue="#{item.CONTENT_PROVIDER_ID}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-xs-10 text-center">
+                                <p:commandButton styleClass="btn btn-primary" 
+                                                 value="#{lang['refundTransaction.btnSearch']}" 
+                                                 id="btnSearch" actionListener="#{refundTransaction.onReprotRefund()}" 
+                                                 update="gridReportData" 
+                                                 onclick="PF('statusDialog').show();" 
+                                                 oncomplete="PF('statusDialog').hide();"/>
+                                <p:commandButton value="#{lang['refundTransaction.btnExcel']}"  id="btnExport" 
+                                                 styleClass="btn btn-info"
+                                                 ajax="false" 
+                                                 update="gridReportData" 
+                                                 validateClient="true" 
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);">
+                                    <p:fileDownload value="#{refundTransaction.file}" />
+                                </p:commandButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-body">
+                        <p:dataTable var="reportRefund" value="#{refundTransaction.listRefund}" id="gridReportData" 
+                                     rows="20"
+                                     paginator="true"
+                                     rowsPerPageTemplate="10,20,50"
+                                     paginatorTemplate="{CurrentPageReport} 
+                                     {FirstPageLink} 
+                                     {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink}
+                                     {LastPageLink} 
+                                     {RowsPerPageDropdown}"
+                                     >
+                            <p:column headerText="#{lang['reportRefund.bankCode']}" >
+                                <h:outputText value="#{reportRefund.BANKCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.cpCode']}">
+                                <h:outputText value="#{reportRefund.CPCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.cpName']}">
+                                <h:outputText value="#{reportRefund.CPNAME}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.typeSearch']}">
+                                <h:outputText value="#{reportRefund.MONDAY}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalSuccess']}">
+                                <h:outputText value="#{reportRefund.TOTALSUCCESS}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalPending']}">
+                                <h:outputText value="#{reportRefund.TOTALPENDING}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalFailure']}">
+                                <h:outputText value="#{reportRefund.TOTALFAILURE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalAmountSuccess']}">
+                                <h:outputText value="#{reportRefund.AMOUNTSUCCESS}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalAmountPending']}">
+                                <h:outputText value="#{reportRefund.AMOUNTPENDING}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportRefund.totalAmountFailure']}">
+                                <h:outputText value="#{reportRefund.AMOUNTFAILURE}" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>

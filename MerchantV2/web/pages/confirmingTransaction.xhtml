@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/WEB-INF/templates/template.xhtml"
+                >
+    <!--xmlns:c="http://java.sun.com/jstl/core"-->
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="formSearch">
+            <section class="content-header">
+                <h1>
+                    <h:outputText value="#{lang['confirming.transaction.title']}"/>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                    <li class="active"><h:outputText value="#{lang['confirming.transaction.title']}"/></li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row"> 
+                            <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                            <!--<label class="col-sm-2 control-label">Từ ngày</label>-->
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="fromDate" value="#{lang['query.transaction.lbl.fromDate']}"  />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:calendar id="fromDate" value="#{confirmingTransactionBean.transForm.fromDate}" showOn="button" required="true" requiredMessage="#{msg['query.transaction.from.date.not.empty']}" converterMessage="#{msg['query.transaction.from.date.invalid']}" />
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="toDate" value="#{lang['query.transaction.lbl.toDate']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:calendar id="toDate" value="#{confirmingTransactionBean.transForm.toDate}" showOn="button" required="true" requiredMessage="#{msg['query.transaction.to.date.not.empty']}" converterMessage="#{msg['query.transaction.to.date.invalid']}" />
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="transId" value="#{lang['query.transaction.lbl.transId']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:inputText id="transId" value="#{confirmingTransactionBean.transForm.transId}" validatorMessage="#{lang['query.transaction.trans.id.msg.error.maxleng']}" >
+                                    <f:validateLength minimum="1" maximum="20" />
+                                </p:inputText>
+<!--                                <p:message for="transId" />-->
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="paymentId" value="#{lang['query.transaction.lbl.paymentId']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:inputText id="paymentId"  value="#{confirmingTransactionBean.transForm.paymentId}" validatorMessage="#{'query.transaction.payment.id.msg.error.maxleng'}" >
+                                    <f:validateLength minimum="1" maximum="30" />
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="bankCode" value="#{lang['query.transaction.lbl.bank']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:selectOneMenu id="bankCode" value="#{confirmingTransactionBean.transForm.bankCode}" style="width:150px">
+                                    <f:selectItem itemLabel="#{lang['query.transaction.lbl.bank.default']}" itemValue=""/>
+                                    <f:selectItem itemLabel="#{lang['query.transaction.lbl.bank.mb']}" itemValue="mb"/>
+                                    <f:selectItem itemLabel="#{lang['query.transaction.lbl.bank.vcb']}" itemValue="vcb"/>
+                                    <f:selectItem itemLabel="#{lang['query.transaction.lbl.bank.bidv']}" itemValue="bidv"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <p:outputLabel for="cpName" value="#{lang['query.transaction.lbl.cp']}" />
+                            </div>
+                            <div class="col-sm-3">
+                                <p:selectOneMenu id="cpName" value="#{confirmingTransactionBean.transForm.cpId}" 
+                                                 style="width:180px"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemLabel="#{lang['searchTransactionBank.chooseCp.default']}" 
+                                                  itemValue="-1"
+                                                  noSelectionOption="true" 
+                                                  />
+                                    <f:selectItems value="#{searchTransactionBank.listContentProvider}" 
+                                                   var="item" 
+                                                   itemLabel="#{item.CP_NAME}" 
+                                                   itemValue="#{item.CONTENT_PROVIDER_ID}" 
+                                                   noSelectionValue="true"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton value="#{lang['query.transaction.btn.search']}" id="btnSearch"  
+                                             actionListener="#{confirmingTransactionBean.searchTrans()}" 
+                                             styleClass="btn btn-primary" ajax="false" 
+                                             update="msgError"
+                                             validateClient="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <!--<p:growl id="msgError" showDetail="true"/>-->
+                    <div class="box-header"><h:outputLabel value="#{lang['query.transaction.lbl.search.result']}" /></div>
+                    <div class="box-body">
+                        <p:dataTable var="trans" value="#{confirmingTransactionBean.listTrans}" rows="10"
+                                     id="listTrans" paginator="true" editable="true" 
+                                     editMode="cell" widgetVar="cellTrans"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowIndexVar="indexVar"
+                                     >
+                            <p:ajax event="cellEdit" listener="#{confirmingTransactionBean.onCellEdit}"  oncomplete="reloadTransConfirm()" />
+
+                            <p:column headerText="#{lang['query.transaction.lbl.index']}" width="5%">
+                                <h:outputText value="#{indexVar + 1}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['confirming.transaction.lbl.trans.id']}">
+                                <h:outputText value="#{trans.TRANSID}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.cp.code']}">
+                                <h:outputText value="#{trans.CPCODE}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.cp.name']}">
+                                <h:outputText value="#{trans.CPNAME}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.billing.code']}">
+                                <h:outputText value="#{trans.BILLINGCODE}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.bank.code']}">
+                                <h:outputText value="#{trans.BANKCODE}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.amount']}">
+                                <div class="text-right">
+                                    <h:outputText value="#{trans.AMOUNT}" />
+                                </div>
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.request.date']}">
+                                <h:outputText value="#{trans.REQUESTDATE}" />
+                            </p:column>
+                            <p:column headerText="#{lang['confirming.transaction.lbl.order.info']}">
+                                <h:outputText value="#{trans.ORDERINFO}" />
+                            </p:column>
+        <!--                    <p:column headerText="#{lang['confirming.transaction.lbl.msisdn']}">
+                                <h:outputText value="#{trans.MSISDN}" />
+                            </p:column>-->
+
+                            <p:column headerText="#{lang['confirming.transaction.lbl.confirm']}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{trans.TEXTCONFIRMSTATUS}" /></f:facet>
+                                    <f:facet name="input">
+                                        <h:selectOneMenu value="#{trans.TEXTCONFIRMSTATUS}" style="width:100%">
+                                            <f:selectItems value="#{confirmingTransactionBean.confirmStatus}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton value="#{lang['confirming.transaction.btn.confirm']}" id="btnShowDialog"  
+                                             actionListener="#{confirmingTransactionBean.showDialogTransConfirm()}" 
+                                             styleClass="btn btn-primary" ajax="true"
+                                             />
+                        </div>
+                    </div>
+                    <p:remoteCommand name="reloadTransConfirm" action="#{confirmingTransactionBean.getAllTransConfirm()}" update="transConfirm" />
+                    <p:dialog header="#{lang['confirming.transaction.lbl.dialog.confirm']}" widgetVar="wdgTransConfirm"  height="300" >
+                        <div  class="box-info">
+                            <div  class="box-body">
+                                <p:dataTable var="transConfirm" value="#{confirmingTransactionBean.getAllTransConfirm()}" rows="10"
+                                             id="transConfirm" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             >
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.trans.id']}">
+                                        <h:outputText value="#{transConfirm.TRANSID}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.billing.code']}">
+                                        <h:outputText value="#{transConfirm.BILLINGCODE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.bank.code']}">
+                                        <h:outputText value="#{transConfirm.BANKCODE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.amount']}">
+                                        <h:outputText value="#{transConfirm.AMOUNT}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.request.date']}">
+                                        <h:outputText value="#{transConfirm.REQUESTDATE}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.order.info']}">
+                                        <h:outputText value="#{transConfirm.ORDERINFO}" />
+                                    </p:column>
+                                    <p:column headerText="#{lang['confirming.transaction.lbl.confirm']}">
+                                        <h:outputText value="#{transConfirm.TEXTCONFIRMSTATUS}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="box-footer">
+                                <p:remoteCommand name="reloadContent" action="#{confirmingTransactionBean.searchTrans}" update="listTrans"  oncomplete="PF('wdgTransConfirm').hide();" />
+                                <div class="col-xs-10 text-center">
+                                    <p:commandButton value="#{lang['confirming.transaction.btn.confirm']}" id="btnConfirm" update="msgError" styleClass="btn btn-flat btn-primary" actionListener="#{confirmingTransactionBean.multiConfirm}" oncomplete="reloadContent()" >
+                                        <p:confirm header="#{msg['confirming.transaction.confirm.dialog.title']}" message="#{msg['confirming.transaction.confirm.dialog.message']}" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{lang['confirming.transaction.btn.cancel']}" type="button" styleClass="btn btn-flat btn-info" onclick="PF('wdgTransConfirm').hide();" />
+                                </div>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </div>
+                        </div>
+                    </p:dialog>
+                </div>
+            </section>
+        </h:form>
+    </ui:define>
+</ui:composition>

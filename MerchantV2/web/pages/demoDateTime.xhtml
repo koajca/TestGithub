@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <h:form id="form">
+        <p:growl id="msgs" showDetail="true" />
+
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="inline" value="Inline:" />
+            <p:calendar id="inline" value="#{queryTransactionBean.fromDate}" mode="inline" />
+        </h:panelGrid>
+
+        <!--<p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />-->
+
+        <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+            <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                <h:outputText value="Inline:" />
+                <h:outputText value="#{queryTransactionBean.fromDate}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+            </p:panelGrid>
+        </p:dialog>
+    </h:form>
+</html>

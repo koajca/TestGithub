@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <section class="content-header">
+                <h1>
+                    <h:outputText value="#{lang['nav.profiles']}"/>
+                    <small><h:outputText value="#{lang['nav.changepass']}"/></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                    <li class="active"><h:outputText value="#{lang['nav.changepass']}"/></li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="box box-primary">
+                            <div class="box-body">
+                                <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">
+                                            <!--<h:outputText value="#{lang['changepass.oldpass']}" />-->
+                                            <p:outputLabel for="oldPass" value="#{lang['changepass.oldpass']}" />
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p:password id="oldPass" placeholder="#{lang['changepass.oldpass']}" value="#{loginBean.password}" required="true" requiredMessage="#{msg['change.pass.old.pass.not.empty']}">
+                                        </p:password>
+                                        <p:message for="oldPass" />
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">
+                                            <!--<h:outputText value="#{lang['changepass.newpass']}" />-->
+                                            <p:outputLabel for="newPass" value="#{lang['changepass.newpass']}" />
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p:password id="newPass" placeholder="#{lang['changepass.newpass']}" value="#{loginBean.newpassword}" required="true"
+                                                    requiredMessage="#{msg['change.pass.new.pass.not.empty']}"
+                                                    validatorMessage="#{msg['change.pass.new.pass.invalid']}"
+                                                    >
+                                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
+                                        </p:password>
+                                        <p:message for="newPass" />
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">
+<!--                                            <h:outputText value="#{lang['changepass.renewpass']}" />-->
+                                            <p:outputLabel for="renewPass" value="#{lang['changepass.renewpass']}" />
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p:password id="renewPass" placeholder="#{lang['changepass.renewpass']}" value="#{loginBean.renewpassword}" required="true" requiredMessage="#{msg['change.pass.renew.pass.not.empty']}" />
+                                        <p:message for="renewPass" />
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">
+<!--                                            <h:outputText value="#{lang['login.securitycode']}" />-->
+                                            <p:outputLabel for="securityCode" value="#{lang['login.securitycode']}" />
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p:inputText id="securityCode" value="#{loginBean.securityCode}" 
+                                                     placeholder="#{lang['login.securitycode']}" required="true"
+                                                     requiredMessage="#{msg['change.pass.security.code.not.empty']}">
+                                        </p:inputText>
+                                        <p:message for="securityCode" />
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-3">
+                                        <img src="#{request.contextPath}/captcha.png" id="imgCaptcha" onclick="reloadCaptcha();" style="cursor: pointer;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <!--                                    update="msgError"-->
+                                    <p:commandButton oncomplete="handleChangePassRequest(xhr, status, args)"
+                                                     value="#{lang['changepass.btnaccept']}"
+                                                     id="btnLogin" update="msgError"
+                                                     actionListener="#{loginBean.doChangePass}"
+                                                     styleClass="btn btn-primary btn-block btn-flat"
+                                                     validateClient="true"
+                                                     />
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </h:form>
+        <script type="text/javascript">
+            function handleChangePassRequest(xhr, status, args) {
+                PF('statusDialog').hide();
+                if (args.validationFailed || !args.changedPass) {
+                    console.log('login false');
+                } else {
+                    alert("#{msg['changepass.success']}");
+                    location.href = 'login.jsf';
+                }
+                reloadCaptcha();
+            }
+
+            function reloadCaptcha() {
+                var url = '#{request.contextPath}/captcha.png?' + Math.random();
+                $('#imgCaptcha').attr('src', url);
+            }
+        </script>
+    </ui:define>
+</ui:composition>

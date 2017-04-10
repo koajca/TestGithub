@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['nav.profiles']}"/>
+                <small><h:outputText value="#{lang['nav.changepass']}"/></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['nav.changepass']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="myform">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Thông tin tìm kiếm</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Từ ngày</label>
+                                    <div class="col-sm-10">
+                                        <p:calendar id="button" value="#{dtPaginatorView.fromDate}" showOn="button" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Từ ngày</label>
+                                    <div class="col-sm-10">
+                                        <p:calendar value="#{dtPaginatorView.fromDate}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Mã GD</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" placeholder=".col-xs-5" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Từ ngày</label>
+                                    <div class="col-sm-10">
+                                        <p:calendar value="#{dtPaginatorView.fromDate}" showOn="button" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Chọn đi em</label>
+                                    <p:selectOneMenu id="city" value="#{dtPaginatorView.city}" style="width:150px">
+                                        <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Select CitySelect CitySelect CitySelect City" itemValue="1" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Select CitySelect CitySelect CitySelect CitySelect City" itemValue="2"  />
+                                        <f:selectItem itemLabel="Select CitySelect CitySelect CitySelect CitySelect CitySelect City" itemValue="3" />
+
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Mã GD</label>
+                                    <div class="col-sm-10">
+                                        <p:inputText placeholder="Ma Giao Dich" value="#{dtPaginatorView.city}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-1"><p:commandButton styleClass="btn btn-primary" value="Tìm kiếm" actionListener="#{dtPaginatorView.search}" update="carData"/></div>
+                        <div class="col-xs-1"><p:commandButton styleClass="btn btn-info" value="Xuất Excel"/></div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh sách giao dịch</h3>
+                    </div>
+                    <div class="box-body">
+                        <p:dataTable var="car" value="#{dtPaginatorView.cars}" rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     id="carData" 
+                                     >
+                            <p:column headerText="Id">
+                                <h:outputText value="#{car.id}" />
+                            </p:column>
+
+                            <p:column headerText="Năm">
+                                <h:outputText value="#{car.year}" />
+                            </p:column>
+
+                            <p:column headerText="Brand">
+                                <h:outputText value="#{car.brand}" />
+                            </p:column>
+
+                            <p:column headerText="Màu sắc">
+                                <h:outputText value="#{car.color}" />
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-search" actionListener="#{dtPaginatorView.viewDetail(car)}" update=":myform:idDlg" oncomplete="PF('dlgDetail').show();"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+                <p:dialog header="Modal Dialog" widgetVar="dlgDetail" modal="true" closable="true" id="idDlg"
+                          width="400" height="200"
+                          >
+                    <p:outputPanel id="myOutputPanel">
+                        <h:outputText value="This is a Modal Dialog." />
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label >Id</label>
+                                </div>
+                                <div class="col-xs-5">
+                                    <h:outputText value="#{dtPaginatorView.transDetail.id}" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label class="col-sm-2 control-label">Id</label>
+                                </div>
+                                <div class="col-xs-5">
+                                    <h:outputText value="#{dtPaginatorView.transDetail.id}" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label class="col-sm-2 control-label">Năm</label>
+                                </div>
+                                <div class="col-xs-5">
+                                    <h:outputText value="#{dtPaginatorView.transDetail.year}" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label class="col-sm-2 control-label">Brand</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h:outputText value="#{dtPaginatorView.transDetail.brand}" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </p:outputPanel>
+
+                </p:dialog>   
+            </h:form>
+        </section>
+
+    </ui:define>
+</ui:composition>

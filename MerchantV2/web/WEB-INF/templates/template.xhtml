@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <f:facet name="last">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title><h:outputText value="#{lang['web.title']}" /></title>
+            <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+            <!-- Bootstrap 3.3.6 -->
+
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/bootstrap.min.css" />
+
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/font-awesome.min.css" />
+
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/ionicons.min.css" />
+            <link rel="stylesheet" href="#{request.contextPath}/resources/primefaces-adminlte/theme.css" />
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/skin-blue.min.css" />
+
+            <!--
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/dist/css/skins/skin-blue.min.css" />
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/font-awesome.min.css" />
+
+            <link rel="stylesheet" href="#{request.contextPath}/resources/ext/css/ionicons.min.css" />
+            -->
+            <style>
+                .form-control, .btn {
+                    padding: 4px 12px !important;
+                }
+                body {
+                    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important; //"Source Sans Pro",
+                }
+
+                .sidebar-menu,
+                .main-sidebar .user-panel,
+                .sidebar-menu > li.header {
+                    white-space: normal !important;
+                    overflow: hidden;
+                }
+            </style>
+        </f:facet>
+    </h:head>
+    <h:body onload="statusDialog.hide();" styleClass="skin-blue sidebar-mini wysihtml5-supported">
+        <f:view contentType="text/html" id="fview">
+            <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+            <div class="wrapper">
+
+                <header class="main-header">
+                    <ui:include src="header.xhtml" />
+                </header>
+                <aside class="main-sidebar">
+                    <ui:include src="menu.xhtml" />
+                </aside>
+                <div class="content-wrapper">
+                    <ui:insert name="content" />
+                </div>
+                <footer class="main-footer">
+                    <ui:include src="footer.xhtml" />
+                </footer>
+            </div>
+            <!--            <p:layout fullPage="true" resizeTitle="resize" style="background-color:#FFFFFF;">
+                            <p:layoutUnit position="north" styleClass="main-header" >
+                                <ui:include src="header.xhtml" />
+                            </p:layoutUnit>
+            
+                            <p:layoutUnit position="west" id="west" styleClass="main-sidebar">
+                                <ui:include src="menu.xhtml" />
+                            </p:layoutUnit>
+            
+                            <p:layoutUnit styleClass="layoutUnitCenter" position="center">
+                                <h:form id="mainForm">
+                                    <ui:insert name="content" />
+                                </h:form>
+                            </p:layoutUnit>
+            
+                            <p:layoutUnit position="east" size="0" style="width:0px; display:none;" id="east">
+                            </p:layoutUnit>
+            
+                            <p:layoutUnit position="south" resizable="true" id="south">
+                                <ui:include src="footer.xhtml" />
+                            </p:layoutUnit>
+                        </p:layout>-->
+
+            <p:dialog modal="true" widgetVar="statusDialog" showHeader="false" draggable="false" closable="false" resizable="false" visible="false" position="center" maximizable="false" minimizable="false" >
+                <p:graphicImage url="/resources/images/ajax-loader.gif"/>
+            </p:dialog>
+        </f:view>
+    </h:body>
+
+</html>

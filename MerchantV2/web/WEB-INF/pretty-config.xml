@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+    <!-- FW -->
+    <url-mapping id="login">
+        <pattern value="/login"/>
+        <view-id value="/login.xhtml"/>
+    </url-mapping>
+    <url-mapping id="logout">
+        <pattern value="/logout"/>
+        <view-id value="/logout.xhtml"/>
+    </url-mapping>
+    <url-mapping id="error">
+        <pattern value="/error.jsf"/>
+        <view-id value="/Error.xhtml"/>
+    </url-mapping>
+    <url-mapping id="refresh">
+        <pattern value="/pages/home"/>
+        <view-id value="/pages/home.xhtml"/>
+    </url-mapping>
+    <url-mapping id="loginSuccess">
+        <pattern value="/pages/home"/>
+        <view-id value="/pages/home.xhtml"/>
+    </url-mapping>
+</pretty-config>

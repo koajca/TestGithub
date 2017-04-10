@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <application>
+        <locale-config>
+            <default-locale>vi</default-locale>
+        </locale-config>
+
+        <resource-bundle>
+            <base-name>language</base-name>
+            <var>lang</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>message</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>config</base-name>
+            <var>config</var>
+        </resource-bundle>
+    </application>
+    
+    <protected-views>
+        <url-pattern>/csrf_protected_page.xhtml</url-pattern>
+    </protected-views>
+    
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/pages/home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <lifecycle>
+        <phase-listener>com.viettel.common.util.MyPhaseListener</phase-listener>
+    </lifecycle>
+</faces-config>

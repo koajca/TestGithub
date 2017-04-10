@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['searchTransactionEVN.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['searchTransactionEVN.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="fmSearchTransEvn">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionEVN.fromDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="frmDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{searchTransactionEVN.fromDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['searchTransactionEVN.toDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="toDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{searchTransactionEVN.toDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton styleClass="btn btn-primary" 
+                                             value="#{lang['searchTransactionEVN.btnSearch']}" 
+                                             id="btnSearch" actionListener="#{searchTransactionEVN.onSearch()}" 
+                                             update="gridSearchData" 
+                                             onclick="PF('statusDialog').show();" 
+                                             oncomplete="PF('statusDialog').hide();"/>
+                            <p:commandButton value="#{lang['searchTransactionEVN.btnExcel']}"  id="btnExport" 
+                                             styleClass="btn btn-info" 
+                                             ajax="false" 
+                                             update="gridSearchData" 
+                                             validateClient="true" 
+                                             onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <p:fileDownload value="#{searchTransactionEVN.file}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-body">
+                        <p:dataTable var="searchTransEvn" value="#{searchTransactionEVN.listTrans}" 
+                                     id="gridSearchData" 
+                                     rows="20"
+                                     paginator="true"
+                                     rowsPerPageTemplate="10,20,50"
+                                     paginatorTemplate="{CurrentPageReport} 
+                                     {FirstPageLink} 
+                                     {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink}
+                                     {LastPageLink} 
+                                     {RowsPerPageDropdown}"
+                                     >
+                            <p:column headerText="#{lang['searchTransEvnDT.BANKCODE']}" >
+                                <h:outputText value="#{searchTransEvn.BANKCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['searchTransEvnDT.REQUESTDATE']}">
+                                <h:outputText value="#{searchTransEvn.REQUESTDATE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['searchTransEvnDT.BILLINGCODE']}">
+                                <h:outputText value="#{searchTransEvn.BILLINGCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['searchTransEvnDT.ORDERID']}">
+                                <h:outputText value="#{searchTransEvn.ORDERID}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['searchTransEvnDT.AMOUNT']}">
+                                <h:outputText value="#{searchTransEvn.AMOUNT}" >
+                                    <f:convertNumber groupingUsed="true" minFractionDigits="0" type="number"/>
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>

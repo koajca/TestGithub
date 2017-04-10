@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/common/util/LoginFilter.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/web/WEB-INF/faces-config.xml</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/ttbankplus/servicegw/hibernate/dao/transaction/TransCPDAO.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/bankplus/merchantgw/beans/SearchTransactionBank.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/message.properties</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/ttbankplus/servicegw/hibernate/processor/transaction/TransactionProcessor.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/bankplus/merchantgw/beans/QueryTransactionBean.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/common/util/DateTimeUtils.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/src/java/com/viettel/common/util/security/EncryptManager.java</file>
+            <file>file:/D:/PhucPT/Development/SVN/MerchantGW/MerchantFrontendV2/web/WEB-INF/pretty-config.xml</file>
+        </group>
+    </open-files>
+</project-private>

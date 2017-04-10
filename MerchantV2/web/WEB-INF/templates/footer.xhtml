@@ -1,0 +1,20 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.11
+    </div>
+    <strong>Copyright &copy; 2017 <a href="http://vietteltelecom.vn">Viettel Telecom</a>.</strong> All rights
+    reserved.
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="#{request.contextPath}/resources/ext/js/app.min.js"></script>
+</ui:composition>

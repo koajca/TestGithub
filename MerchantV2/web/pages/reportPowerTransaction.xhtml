@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['reportPowerTransaction.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['reportPowerTransaction.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="fmTranfer">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerTransaction.fromDate']} <text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="frmDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{reportPowerTransaction.fromDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerTransaction.toDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="toDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{reportPowerTransaction.toDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerTransaction.chooseCp']}</label>
+                                    <div id = "chooseCp" class="col-xs-7">
+                                        <p:selectOneMenu value="#{reportPowerTransaction.chooseCp}" style="width:180px"
+                                                         filter="true"
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{lang['reportPowerTransaction.chooseCp.default']}" 
+                                                          itemValue="-1" 
+                                                          noSelectionOption="true" />
+                                            <f:selectItems value="#{reportPowerTransaction.listContentProvider}" 
+                                                           var="item" 
+                                                           itemLabel="#{item.CP_NAME}" 
+                                                           itemValue="#{item.CONTENT_PROVIDER_ID}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton styleClass="btn btn-primary" 
+                                             value="#{lang['reportPowerTransaction.btnSearch']}" 
+                                             id="btnSearch" actionListener="#{reportPowerTransaction.onReprotPower()}" 
+                                             update="gridReportData" 
+                                             onclick="PF('statusDialog').show();" 
+                                             oncomplete="PF('statusDialog').hide();"/>
+                            <p:commandButton value="#{lang['reportPowerTransaction.btnExcel']}"  id="btnExport" 
+                                             styleClass="btn btn-info" 
+                                             ajax="false" 
+                                             update="gridReportData" 
+                                             validateClient="true" 
+                                             onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <p:fileDownload value="#{reportPowerTransaction.file}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-body">
+                        <p:dataTable var="powerTrans" 
+                                     value="#{reportPowerTransaction.listTrans}" 
+                                     id="gridReportData" 
+                                     rows="20"
+                                     paginator="true"
+                                     rowsPerPageTemplate="10,20,50"
+                                     paginatorTemplate="{CurrentPageReport} 
+                                     {FirstPageLink} 
+                                     {PreviousPageLink} 
+                                     {PageLinks} {NextPageLink}
+                                     {LastPageLink} 
+                                     {RowsPerPageDropdown}"
+                                     >
+                            <p:column headerText="#{lang['reportPowerTransactionDT.REQDATE']}" >
+                                <h:outputText value="#{powerTrans.REQDATE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.ORDERID']}">
+                                <h:outputText value="#{powerTrans.ORDERID}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.BILLINGCODE']}">
+                                <h:outputText value="#{powerTrans.BILLINGCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.CUSTOMERNAME']}">
+                                <h:outputText value="#{powerTrans.CUSTOMERNAME}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.CUSTADDRESS']}">
+                                <h:outputText value="#{powerTrans.CUSTADDRESS}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.NUMBERGCS']}">
+                                <h:outputText value="#{powerTrans.NUMBERGCS}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.AMOUNT']}">
+                                <h:outputText value="#{powerTrans.AMOUNT}" >
+                                    <f:convertNumber groupingUsed="true" minFractionDigits="0" type="number"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.MACN']}">
+                                <h:outputText value="#{powerTrans.MACN}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.TRANSID']}">
+                                <h:outputText value="#{powerTrans.TRANSID}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.MSISDN']}">
+                                <h:outputText value="#{powerTrans.MSISDN}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.BANKCODE']}">
+                                <h:outputText value="#{powerTrans.BANKCODE}" />
+                            </p:column>
+
+                            <p:column headerText="#{lang['reportPowerTransactionDT.CPTRANSTATUS']}">
+                                <h:outputText value="#{lang['reportPowerTransactionDT.CPTRANSTATUS.status.0']}" rendered="#{powerTrans.CPTRANSTATUS == 0}" /> 
+                                <h:outputText value="#{lang['reportPowerTransactionDT.CPTRANSTATUS.status.1']}" rendered="#{powerTrans.CPTRANSTATUS == 1}" /> 
+                                <h:outputText value="#{lang['reportPowerTransactionDT.CPTRANSTATUS.status.2']}" rendered="#{powerTrans.CPTRANSTATUS == 2}" /> 
+                                <h:outputText value="#{lang['reportPowerTransactionDT.CPTRANSTATUS.status.3']}" rendered="#{powerTrans.CPTRANSTATUS == 3}" /> 
+                                <h:outputText value="#{lang['reportPowerTransactionDT.CPTRANSTATUS.status.4']}" rendered="#{powerTrans.CPTRANSTATUS == 4}" /> 
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>

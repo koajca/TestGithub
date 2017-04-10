@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="metadata">
+    </ui:define>
+    <ui:define name="content">
+        <section class="content-header">
+            <h1>
+                <h:outputText value="#{lang['reportPowerReg.title']}"/>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#{request.contextPath}/pages/home.xhtml"><i class="fa fa-dashboard"></i> <h:outputText value="#{lang['nav.home']}"/></a></li>
+                <li class="active"><h:outputText value="#{lang['reportPowerReg.title']}"/></li>
+            </ol>
+        </section>
+        <section class="content">
+            <h:form id="fmTranfer">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <p:messages id="msgError" autoUpdate="true" showSummary="true" />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerReg.fromDate']} <text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="frmDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{reportPowerReg.fromDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerReg.toDate']}<text style="color: red">(*)</text></label>
+                                    <div class="col-xs-7">
+                                        <p:calendar id="toDate" placeholder="#{lang['fomatTime_ddMMyyyy']}" value="#{reportPowerReg.toDate}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">#{lang['reportPowerReg.chooseCp']}</label>
+                                    <div id = "chooseCp" class="col-xs-7">
+                                        <p:selectOneMenu value="#{reportPowerReg.chooseCp}" style="width:180px"
+                                                         filter="true"
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{lang['reportPowerReg.chooseCp.default']}" 
+                                                          itemValue="-1" 
+                                                          noSelectionOption="true" />
+                                            <f:selectItems value="#{reportPowerReg.listContentProvider}" 
+                                                           var="item" 
+                                                           itemLabel="#{item.CP_NAME}" 
+                                                           itemValue="#{item.CONTENT_PROVIDER_ID}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-xs-10 text-center">
+                            <p:commandButton value="#{lang['reportPowerReg.btnExcel']}"  id="btnExport" 
+                                             styleClass="btn btn-info" 
+                                             ajax="false" 
+                                             validateClient="true" 
+                                             onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <p:fileDownload value="#{reportPowerReg.file}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>
